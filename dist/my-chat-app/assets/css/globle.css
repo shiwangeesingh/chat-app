@@ -1,0 +1,213 @@
+.card-block-small .f-left{
+    text-align: left;
+    display: flex;
+}
+.widget-full-height {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+    margin-bottom: 30px;
+}
+.widget-full-height .widget-bg {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+}
+
+
+.pcoded .pcoded-header .pcoded-left-header, .pcoded.expanded .pcoded-navbar {
+    width: 270px;
+}
+
+.pcoded .pcoded-navbar {
+    float: left;
+}
+.pcoded .pcoded-navbar {
+    position: fixed;
+}
+.pcoded .pcoded-navbar {
+    background: #fff;
+}
+.pcoded .pcoded-navbar {
+    box-shadow: 0 0 11px rgba(0,0,0,0.13);
+}
+.pcoded .pcoded-navbar {
+    z-index: 1027;
+    height: 100%;
+}
+.pcoded .pcoded-navbar {
+    display: block;
+}
+
+.pcoded.offcanvas .pcoded-navbar {
+    width: 270px;
+    margin-left: -270px;
+}
+
+.uploadMulti{
+    width: 100%; 
+    min-height: 100vh; 
+    float: left; 
+    padding: 40px;
+}
+.uploadMulti ul{
+    margin: 0px -5px;
+}
+.uploadMulti .li{
+    float: left;
+    padding: 5px;
+    width: 20%;
+    position: relative;
+    text-align: center;
+}
+.uploadMulti .li .img{
+    width: 100%;
+    float: left;
+    height: 155px;
+    overflow: hidden;
+}
+.uploadMulti .li img{
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+}
+.uploadMulti .li .closess{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: #fff;
+    background-color: #ff3f00;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+}
+.uploadMulti .li strong, .uploadMulti .li input{
+    display: block;
+    padding: 0px 8px;
+    margin: 5px auto;
+}
+/* textarea{
+    width: 100%;
+    border: 1px solid #c5c5c5;
+    border-radius: 5px;
+    padding: 10px 15px;
+    height: 110px;
+} */
+.invalid-feedback{
+    width: 100%;
+    float: left;
+    text-align: left;
+}
+.custom-select.is-invalid:focus, .form-control.is-invalid:focus, .was-validated .custom-select:invalid:focus, .was-validated .form-control:invalid:focus {
+    box-shadow: 0 0 0 0rem rgba(220,53,69,.0);
+}
+.form-control[readonly] {
+    background-color: #fff;
+}
+.wizard>.content fieldset{
+    border: 0px;
+}
+.profile-image{
+    position: relative;
+}
+.profile-image input[type=file]{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    opacity: 0;
+    z-index: 11;
+}
+.nowrap{
+    white-space: nowrap;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    box-shadow: 0 0 0 30px white inset !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+select:-webkit-autofill,
+select:-webkit-autofill:hover, 
+select:-webkit-autofill:focus, 
+select:-webkit-autofill:active  {
+    box-shadow: 0 0 0 30px white inset !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover, 
+textarea:-webkit-autofill:focus, 
+textarea:-webkit-autofill:active  {
+    box-shadow: 0 0 0 30px white inset !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+app-email-compose app-email-left .user-body .text-center .btn.btn-danger{
+    display: none;
+}
+
+.dataTables_filter{
+    position: relative;
+}
+.dataTables_filter i{
+    position: absolute;
+    right: 3px;
+    top: 12px;
+    height: 100%;
+    background-color: #4680ff;
+    border-color: #4680ff;
+    color: #333;
+}
+.form-group.d-flex label{
+    min-width: 36% !important;
+}
+.btn + .btn {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 767px){
+    .form-group.d-flex{
+        display: block!important;
+    }
+    .form-group.d-flex label{
+        width: 100%;
+    }
+    .pcoded .pcoded-content{
+        float: left;
+    }
+    .pcoded.expanded .pcoded-content {
+        margin-left: 0px;
+    }
+    .pcoded.offcanvas .pcoded-content {
+        margin-left: 270px;
+    }
+    .pcoded.expanded .pcoded-navbar {
+        width: 270px;
+        margin-left: -270px;
+    }
+    .pcoded.offcanvas .pcoded-navbar {
+        width: 270px;
+        margin-left: 0px;
+    }
+}
+.wpx-70{width:70px!important}
+.wpx-80{width:80px!important}
+.wpx-90{width:90px!important}
+.wpx-100{width:100px!important}
+.wpx-110{width:110px!important}
+.wpx-120{width:120px!important}
+.wpx-130{width:130px!important}
+.wpx-150{width:150px!important}
+.wpx-175{width:175px!important}
+.wpx-200{width:200px!important}
+.wpx-240{width:240px!important}
