@@ -107,7 +107,6 @@ userSchema.methods.toSafeObject = function toSafeObject() {
 const UserModel = conn.model("user", userSchema);
 
 exports.UserModel = UserModel;
-exports.hashPassword = hashPassword;
 exports.verifyPassword = verifyPassword;
 exports.normalizeUserName = normalizeUserName;
 exports.isHashedPassword = isHashedPassword;

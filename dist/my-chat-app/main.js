@@ -249,68 +249,38 @@ var ChatComponent = /** @class */ (function () {
         var url = '/getAllUser';
         this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { userId: this.userId }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
             .subscribe(function (response) {
-            console.log("userList", response);
             _this.userList = response.data;
             setTimeout(function () {
                 _this.getId(_this.userList[0]);
             }, 500);
-        }, function (error) {
-            console.log(error);
-            //this.errorMessage = "Invalid credentials!"
-        });
+        }, function () { });
     };
     ChatComponent.prototype.getId = function (item) {
         var _this = this;
-        console.log("getId calling", item);
-        var senderId = this.userId;
         this.recieverId = item._id;
         this.receiverName = item.name;
-        var receiverName = item.name;
         var recieverId = item._id;
-        this.senderName = JSON.parse(localStorage.getItem('name'));
         var url = '/getChat';
-        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { recieverId: recieverId, senderId: senderId }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
+        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { recieverId: recieverId }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
             .subscribe(function (response) {
-            console.log("response", response);
             _this.chatList = response.chat;
-            console.log(" this.chatList", _this.chatList);
-        }, function (error) {
-            //this.errorMessage = "Invalid credentials!"
-        });
-    };
-    ChatComponent.prototype.getChat = function () {
-        var _this = this;
-        var name = localStorage.getItem('name');
-        var url = '/getAllUser';
-        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { name: name }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
-            .subscribe(function (response) {
-            console.log(response);
-            _this.userList = response.data;
-        }, function (error) {
-            //this.errorMessage = "Invalid credentials!"
-        });
+        }, function () { });
     };
     ChatComponent.prototype.sendMessage = function () {
         var _this = this;
-        console.log("item", this.message);
         var senderId = this.userId;
-        var receiverName = this.receiverName;
         var recieverId = this.recieverId;
-        var senderName = this.senderName;
         var url = '/sendMessage';
-        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { receiverName: receiverName, recieverId: recieverId, senderId: senderId, senderName: senderName, message: this.message }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
+        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { recieverId: recieverId, message: this.message }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
             .subscribe(function (response) {
-            _this.socket.emit('sendMessageFromSender', { receiverName: receiverName, recieverId: recieverId, senderId: senderId, senderName: senderName, message: _this.message });
+            _this.socket.emit('sendMessageFromSender', { recieverId: recieverId, senderId: senderId, message: _this.message });
             _this.message = "";
-            console.log("response", response);
             var data = {
                 name: _this.receiverName,
                 _id: recieverId,
             };
             _this.getId(data);
-        }, function (error) {
-            console.log(error);
-        });
+        }, function () { });
     };
     ChatComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -383,30 +353,14 @@ var LoginComponent = /** @class */ (function () {
         this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
     }
     LoginComponent.prototype.ngOnInit = function () {
-        // debugger
-        // const userId = '5c86773b420b0d0aa00070c3';
-        // this.messagingService.requestPermission(userId)
-        // this.messagingService.receiveMessage()
-        // this.message = this.messagingService.currentMessage
         localStorage.removeItem('name');
         localStorage.removeItem('userId');
         localStorage.removeItem('authToken');
-        // if(localStorage.getItem('token'))
-        // if (localStorage.getItem('email') && localStorage.getItem('password')) 
-        //  if(localStorage.getItem('rememberme'))
-        //   {
-        //     this.email = JSON.parse(localStorage.getItem('email'));
-        //     this.password = JSON.parse(localStorage.getItem('password'));
-        //    this.rememberme = true;
-        //     // this.Formdat.rememberme = this._cookieService.get('remember');
-        //   }
-        //this.router.navigate(['/dashboard']);
     };
     LoginComponent.prototype.login = function (data) {
         var _this = this;
         this.errorMessage = '';
         var url = '/login';
-        console.log("data", data);
         this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, data)
             .subscribe(function (response) {
             _this.data1 = response;
