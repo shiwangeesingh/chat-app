@@ -1,36 +1,46 @@
-const {mongoose,conn} = require('./dbConnection')
+const { mongoose, conn } = require("./dbConnection");
 
-var chatSchema = mongoose.Schema({
-
-    senderId: {     
-        type: mongoose.Schema.Types.ObjectId,
-                ref: 'user',
-                default : null
-        },
-recieverId: {     
-    type: mongoose.Schema.Types.ObjectId,
-            ref: 'user',
-            default : null
+const chatSchema = mongoose.Schema(
+  {
+    senderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+      index: true
     },
-senderName:{
-    type:String,
-    require:true,
-    default:""
-},
-receiverName:{
-    type:String,
-    require:true,
-    default:""
-},
-message:{
-    type:String,
-    require:true,
-    default:""  
-},
-},{
-    strict:true,
+    recieverId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+      index: true
+    },
+    senderName: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 50
+    },
+    receiverName: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 50
+    },
+    message: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 2000
+    }
+  },
+  {
+    strict: true,
     versionKey: false,
     timestamps: true,
-    colletion:'chat'
-})
-exports.chatModel = conn.model('chat',chatSchema)
+    collection: "chat"
+  }
+);
+
+chatSchema.index({ senderId: 1, recieverId: 1, createdAt: 1 });
+
+exports.chatModel = conn.model("chat", chatSchema);

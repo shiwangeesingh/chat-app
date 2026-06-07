@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "check": "node --check index.js chatDb.js dbConnection.js userDb.js"
   },
   "author": "shiwangee",
   "license": "ISC",

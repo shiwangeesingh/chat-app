@@ -229,20 +229,25 @@ var ChatComponent = /** @class */ (function () {
         this.http = http;
         this.route = route;
         this.userId = JSON.parse(localStorage.getItem('userId'));
+        this.authToken = JSON.parse(localStorage.getItem('authToken') || 'null');
         this.url = 'http://localhost:3000';
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_5___default()(this.url, { query: 'userId=' + this.userId });
+        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_5___default()(this.url, { query: 'userId=' + this.userId + '&token=' + encodeURIComponent(this.authToken || '') });
         this.socket.on('sendMessageToReciever', function (data) {
             if (_this.recieverId == data.senderId)
                 _this.chatList.push(data);
         });
     }
     ChatComponent.prototype.ngOnInit = function () {
+        if (!this.userId || !this.authToken) {
+            this.router.navigate(['/']);
+            return;
+        }
         this.getAllUser();
     };
     ChatComponent.prototype.getAllUser = function () {
         var _this = this;
         var url = '/getAllUser';
-        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { userId: this.userId })
+        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { userId: this.userId }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
             .subscribe(function (response) {
             console.log("userList", response);
             _this.userList = response.data;
@@ -264,7 +269,7 @@ var ChatComponent = /** @class */ (function () {
         var recieverId = item._id;
         this.senderName = JSON.parse(localStorage.getItem('name'));
         var url = '/getChat';
-        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { recieverId: recieverId, senderId: senderId })
+        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { recieverId: recieverId, senderId: senderId }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
             .subscribe(function (response) {
             console.log("response", response);
             _this.chatList = response.chat;
@@ -277,7 +282,7 @@ var ChatComponent = /** @class */ (function () {
         var _this = this;
         var name = localStorage.getItem('name');
         var url = '/getAllUser';
-        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { name: name })
+        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { name: name }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
             .subscribe(function (response) {
             console.log(response);
             _this.userList = response.data;
@@ -293,7 +298,7 @@ var ChatComponent = /** @class */ (function () {
         var recieverId = this.recieverId;
         var senderName = this.senderName;
         var url = '/sendMessage';
-        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { receiverName: receiverName, recieverId: recieverId, senderId: senderId, senderName: senderName, message: this.message })
+        this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, { receiverName: receiverName, recieverId: recieverId, senderId: senderId, senderName: senderName, message: this.message }, { headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({ Authorization: 'Bearer ' + this.authToken }) })
             .subscribe(function (response) {
             _this.socket.emit('sendMessageFromSender', { receiverName: receiverName, recieverId: recieverId, senderId: senderId, senderName: senderName, message: _this.message });
             _this.message = "";
@@ -385,6 +390,7 @@ var LoginComponent = /** @class */ (function () {
         // this.message = this.messagingService.currentMessage
         localStorage.removeItem('name');
         localStorage.removeItem('userId');
+        localStorage.removeItem('authToken');
         // if(localStorage.getItem('token'))
         // if (localStorage.getItem('email') && localStorage.getItem('password')) 
         //  if(localStorage.getItem('rememberme'))
@@ -404,8 +410,9 @@ var LoginComponent = /** @class */ (function () {
         this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl + url, data)
             .subscribe(function (response) {
             _this.data1 = response;
-            localStorage.setItem('name', JSON.stringify(data.name));
+            localStorage.setItem('name', JSON.stringify(_this.data1.data.name));
             localStorage.setItem('userId', JSON.stringify(_this.data1.data._id));
+            localStorage.setItem('authToken', JSON.stringify(_this.data1.token));
             _this.msg = "Login successful!";
             _this.router.navigate(['/chat']);
         }, function (error) {
