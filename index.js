@@ -123,7 +123,6 @@ function verifyToken(token) {
 function createAuthToken(user) {
   return signToken({
     userId: String(user._id),
-    name: user.name,
     exp: Date.now() + TOKEN_TTL_MS
   });
 }
